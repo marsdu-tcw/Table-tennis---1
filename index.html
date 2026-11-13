@@ -1,0 +1,1808 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2026 TURBO SPIN // 世界與日本桌球膠皮 × WTT 法蘭克福極速簡報</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Orbitron:wght@500;700;900&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #07090e;
+      --bg-panel: rgba(14, 18, 28, 0.88);
+      --bg-card: rgba(20, 26, 40, 0.92);
+      --nitro-cyan: #00f0ff;
+      --turbo-orange: #ff4d00;
+      --flame-red: #ff1e42;
+      --champ-gold: #ffd000;
+      --text-main: #f0f4ff;
+      --text-muted: #8b9bb4;
+      --border-glow: rgba(0, 240, 255, 0.35);
+      --font-display: 'Orbitron', 'Rajdhani', 'Noto Sans TC', sans-serif;
+      --font-body: 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      min-height: 100vh;
+      overflow-x: hidden;
+      /* Carbon fiber + Asphalt Speed Texture */
+      background-image:
+        radial-gradient(circle at 15% 20%, rgba(255, 77, 0, 0.14) 0%, transparent 40%),
+        radial-gradient(circle at 85% 80%, rgba(0, 240, 255, 0.14) 0%, transparent 45%),
+        linear-gradient(45deg, #0b0e16 25%, transparent 25%),
+        linear-gradient(-45deg, #0b0e16 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, #0b0e16 75%),
+        linear-gradient(-45deg, transparent 75%, #0b0e16 75%);
+      background-size: 100% 100%, 100% 100%, 16px 16px, 16px 16px, 16px 16px, 16px 16px;
+      background-position: 0 0, 0 0, 0 0, 0 8px, 8px -8px, -8px 0;
+    }
+
+    /* Animated speed streaks background */
+    .speed-lines {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+      opacity: 0.25;
+    }
+    .speed-line {
+      position: absolute;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--nitro-cyan), transparent);
+      animation: streak 2.8s linear infinite;
+    }
+    .speed-line.orange {
+      background: linear-gradient(90deg, transparent, var(--turbo-orange), transparent);
+      animation-duration: 2.1s;
+    }
+    @keyframes streak {
+      0% { transform: translateX(-100vw) skewX(-25deg); opacity: 0; }
+      30% { opacity: 1; }
+      100% { transform: translateX(120vw) skewX(-25deg); opacity: 0; }
+    }
+
+    /* Top Racing HUD Header */
+    .hud-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(7, 9, 14, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 2px solid var(--turbo-orange);
+      box-shadow: 0 4px 25px rgba(255, 77, 0, 0.25);
+      padding: 10px 24px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand-badge {
+      background: linear-gradient(135deg, var(--turbo-orange), var(--flame-red));
+      padding: 6px 12px;
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: 0.9rem;
+      letter-spacing: 1.5px;
+      clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
+      text-shadow: 0 2px 6px rgba(0,0,0,0.5);
+    }
+    .brand-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.05rem;
+      letter-spacing: 1px;
+    }
+    .brand-title span {
+      color: var(--nitro-cyan);
+    }
+
+    /* Slide Nav Tabs */
+    .slide-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .nav-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      color: var(--text-muted);
+      padding: 7px 14px;
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+      clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%);
+      transition: all 0.22s ease;
+    }
+    .nav-btn:hover {
+      border-color: var(--nitro-cyan);
+      color: #fff;
+      transform: translateY(-1px);
+    }
+    .nav-btn.active {
+      background: linear-gradient(135deg, rgba(0, 240, 255, 0.22), rgba(0, 140, 255, 0.35));
+      border-color: var(--nitro-cyan);
+      color: var(--nitro-cyan);
+      box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
+    }
+
+    /* Action Buttons (Driver Name & Download) */
+    .hud-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .driver-input-wrap {
+      display: flex;
+      align-items: center;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(0,240,255,0.3);
+      padding: 4px 10px;
+      border-radius: 4px;
+    }
+    .driver-input-wrap label {
+      font-size: 0.72rem;
+      color: var(--nitro-cyan);
+      font-family: var(--font-display);
+      margin-right: 6px;
+    }
+    .driver-input-wrap input {
+      background: transparent;
+      border: none;
+      color: #fff;
+      font-size: 0.85rem;
+      width: 95px;
+      outline: none;
+      font-weight: 700;
+    }
+
+    .btn-nitro {
+      background: linear-gradient(135deg, var(--turbo-orange), var(--flame-red));
+      color: #fff;
+      border: none;
+      padding: 8px 16px;
+      font-weight: 800;
+      font-size: 0.84rem;
+      cursor: pointer;
+      clip-path: polygon(10px 0, 100% 0, calc(100% - 10px) 100%, 0 100%);
+      box-shadow: 0 0 16px rgba(255, 77, 0, 0.45);
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-nitro:hover {
+      transform: scale(1.04);
+      box-shadow: 0 0 24px rgba(255, 77, 0, 0.75);
+    }
+    .btn-cyan {
+      background: linear-gradient(135deg, #00b8ff, #0066ff);
+      box-shadow: 0 0 16px rgba(0, 240, 255, 0.35);
+    }
+    .btn-cyan:hover {
+      box-shadow: 0 0 24px rgba(0, 240, 255, 0.7);
+    }
+
+    /* Main Presentation Stage */
+    .stage {
+      position: relative;
+      z-index: 1;
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 24px 20px 90px;
+    }
+
+    .slide {
+      display: none;
+      animation: slideBoost 0.38s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .slide.active {
+      display: block;
+    }
+    @keyframes slideBoost {
+      0% { opacity: 0; transform: translateX(40px) skewX(-2deg); }
+      100% { opacity: 1; transform: translateX(0) skewX(0); }
+    }
+
+    /* Section Titles */
+    .slide-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 22px;
+      border-left: 5px solid var(--turbo-orange);
+      padding-left: 16px;
+    }
+    .slide-tag {
+      font-family: var(--font-display);
+      font-size: 0.78rem;
+      letter-spacing: 2.5px;
+      color: var(--nitro-cyan);
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .slide-title {
+      font-size: clamp(1.5rem, 3vw, 2.25rem);
+      font-weight: 900;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    .slide-title span {
+      color: var(--turbo-orange);
+    }
+
+    /* Glass Angular Panels */
+    .hud-panel {
+      background: var(--bg-panel);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-top: 2px solid var(--nitro-cyan);
+      border-radius: 6px;
+      padding: 20px;
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.55);
+      position: relative;
+    }
+    .hud-panel.orange-top {
+      border-top-color: var(--turbo-orange);
+    }
+    .hud-panel.gold-top {
+      border-top-color: var(--champ-gold);
+    }
+
+    /* SLIDE 1: HERO COVER */
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.25fr 0.95fr;
+      gap: 24px;
+      align-items: center;
+      min-height: 68vh;
+    }
+    .hero-kicker {
+      display: inline-block;
+      background: rgba(0, 240, 255, 0.12);
+      border: 1px solid var(--nitro-cyan);
+      color: var(--nitro-cyan);
+      padding: 5px 14px;
+      font-family: var(--font-display);
+      font-size: 0.82rem;
+      letter-spacing: 2px;
+      margin-bottom: 16px;
+      clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%);
+    }
+    .hero-h1 {
+      font-size: clamp(2.1rem, 4.4vw, 3.5rem);
+      font-weight: 900;
+      line-height: 1.15;
+      font-style: italic;
+      margin-bottom: 16px;
+      text-shadow: 0 0 30px rgba(0, 240, 255, 0.25);
+    }
+    .hero-h1 .accent-orange {
+      color: var(--turbo-orange);
+      text-shadow: 0 0 25px rgba(255, 77, 0, 0.5);
+    }
+    .hero-h1 .accent-cyan {
+      color: var(--nitro-cyan);
+    }
+    .hero-desc {
+      font-size: 1.05rem;
+      line-height: 1.75;
+      color: #c5d1e6;
+      margin-bottom: 24px;
+    }
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 26px;
+    }
+    .stat-box {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 14px;
+      border-bottom: 3px solid var(--turbo-orange);
+    }
+    .stat-num {
+      font-family: var(--font-display);
+      font-size: 1.65rem;
+      font-weight: 900;
+      color: var(--champ-gold);
+    }
+    .stat-label {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    /* Racing Speedometer SVG Card */
+    .tachometer-card {
+      background: radial-gradient(circle at center, rgba(0, 240, 255, 0.12), rgba(10, 14, 22, 0.95));
+      border: 2px solid rgba(0, 240, 255, 0.35);
+      border-radius: 12px;
+      padding: 24px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .tachometer-card::after {
+      content: "NOS // 2026 PRO SPEC";
+      position: absolute;
+      top: 12px;
+      right: -32px;
+      background: var(--turbo-orange);
+      color: #fff;
+      font-family: var(--font-display);
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 4px 40px;
+      transform: rotate(35deg);
+    }
+
+    /* SLIDE 2: RUBBER CATALOG & FILTER */
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+    .filter-pill {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      color: var(--text-muted);
+      padding: 7px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 0.86rem;
+      transition: all 0.2s;
+    }
+    .filter-pill.active, .filter-pill:hover {
+      background: rgba(255, 77, 0, 0.22);
+      border-color: var(--turbo-orange);
+      color: #fff;
+    }
+
+    .rubber-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(295px, 1fr));
+      gap: 16px;
+    }
+    .rubber-card {
+      background: var(--bg-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-left: 4px solid var(--nitro-cyan);
+      border-radius: 6px;
+      padding: 16px;
+      transition: all 0.24s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .rubber-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--nitro-cyan);
+      box-shadow: 0 8px 25px rgba(0, 240, 255, 0.2);
+    }
+    .rubber-card.is-2026 {
+      border-left-color: var(--turbo-orange);
+    }
+    .rubber-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    .rubber-brand {
+      font-family: var(--font-display);
+      font-size: 0.72rem;
+      color: var(--nitro-cyan);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+    .rubber-name {
+      font-size: 1.15rem;
+      font-weight: 900;
+      margin-top: 2px;
+    }
+    .badge-tag {
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 3px;
+      white-space: nowrap;
+    }
+    .badge-new { background: var(--turbo-orange); color: #fff; }
+    .badge-jp { background: rgba(0, 240, 255, 0.2); color: var(--nitro-cyan); border: 1px solid var(--nitro-cyan); }
+    .badge-hybrid { background: rgba(255, 208, 0, 0.18); color: var(--champ-gold); border: 1px solid var(--champ-gold); }
+
+    .rubber-specs-mini {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 6px 12px;
+      margin: 10px 0;
+      font-size: 0.8rem;
+    }
+    .mini-bar-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .mini-bar-label {
+      display: flex;
+      justify-content: space-between;
+      color: var(--text-muted);
+      font-size: 0.75rem;
+    }
+    .mini-bar-label strong { color: #fff; font-family: var(--font-display); }
+    .mini-bar-track {
+      height: 6px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .mini-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--nitro-cyan), #0077ff);
+      border-radius: 3px;
+    }
+    .mini-bar-fill.orange {
+      background: linear-gradient(90deg, var(--turbo-orange), var(--champ-gold));
+    }
+    .rubber-desc {
+      font-size: 0.83rem;
+      line-height: 1.55;
+      color: #bcc8dc;
+      margin: 8px 0 12px;
+    }
+    .rubber-meta-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.76rem;
+      color: var(--text-muted);
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding-top: 8px;
+    }
+
+    /* SLIDE 3: DUEL / RADAR COMPARISON */
+    .duel-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.15fr 1fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+    .duel-selector {
+      width: 100%;
+      background: #0d121d;
+      color: #fff;
+      border: 2px solid var(--nitro-cyan);
+      padding: 10px 12px;
+      font-size: 1rem;
+      font-weight: 700;
+      border-radius: 5px;
+      margin-bottom: 14px;
+      cursor: pointer;
+    }
+    .duel-selector.p2 {
+      border-color: var(--turbo-orange);
+    }
+    .duel-stat-row {
+      margin-bottom: 12px;
+    }
+    .duel-stat-top {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      margin-bottom: 4px;
+    }
+    .vs-badge {
+      display: inline-block;
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-style: italic;
+      font-size: 1.3rem;
+      color: var(--champ-gold);
+      text-shadow: 0 0 12px rgba(255, 208, 0, 0.5);
+    }
+
+    /* SLIDE 4: WTT FRANKFURT 2026 PLAYERS & RUBBER PAIRING LAB */
+    .player-roster-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+    .player-card {
+      background: rgba(16, 21, 33, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 6px;
+      padding: 13px 14px;
+      cursor: pointer;
+      transition: all 0.22s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .player-card:hover {
+      border-color: var(--nitro-cyan);
+      transform: translateY(-3px);
+    }
+    .player-card.selected {
+      border: 2px solid var(--turbo-orange);
+      background: linear-gradient(135deg, rgba(255, 77, 0, 0.18), rgba(16, 21, 33, 0.95));
+      box-shadow: 0 0 22px rgba(255, 77, 0, 0.35);
+    }
+    .player-card.selected::before {
+      content: "ACTIVE DRIVER";
+      position: absolute;
+      top: 0;
+      right: 0;
+      background: var(--turbo-orange);
+      color: #fff;
+      font-family: var(--font-display);
+      font-size: 0.62rem;
+      font-weight: 800;
+      padding: 2px 8px;
+    }
+    .player-rank-pill {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 2px 7px;
+      border-radius: 3px;
+      margin-bottom: 6px;
+    }
+    .pill-champ { background: rgba(255, 208, 0, 0.2); color: var(--champ-gold); border: 1px solid var(--champ-gold); }
+    .pill-final { background: rgba(0, 240, 255, 0.18); color: var(--nitro-cyan); border: 1px solid var(--nitro-cyan); }
+    .pill-semi { background: rgba(255, 77, 0, 0.18); color: #ff8c5a; border: 1px solid var(--turbo-orange); }
+
+    .player-name {
+      font-size: 1.08rem;
+      font-weight: 900;
+    }
+    .player-en {
+      font-family: var(--font-display);
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      letter-spacing: 0.5px;
+    }
+    .player-style-mini {
+      font-size: 0.78rem;
+      color: #b7c4da;
+      margin-top: 6px;
+    }
+
+    /* Pairing Cockpit */
+    .cockpit-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.55fr;
+      gap: 20px;
+      align-items: start;
+    }
+    .racket-showcase {
+      text-align: center;
+      padding: 18px;
+      background: radial-gradient(circle at center, rgba(255, 77, 0, 0.14), rgba(10, 14, 22, 0.95));
+      border: 1px solid rgba(255, 77, 0, 0.35);
+      border-radius: 8px;
+    }
+    .side-toggle {
+      display: inline-flex;
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 5px;
+      padding: 4px;
+      margin: 12px 0;
+      gap: 4px;
+    }
+    .side-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      padding: 7px 14px;
+      font-weight: 800;
+      font-size: 0.82rem;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: all 0.2s;
+    }
+    .side-btn.active.fh {
+      background: var(--flame-red);
+      color: #fff;
+      box-shadow: 0 0 12px rgba(255, 30, 66, 0.5);
+    }
+    .side-btn.active.bh {
+      background: #1f2937;
+      color: var(--nitro-cyan);
+      border: 1px solid var(--nitro-cyan);
+    }
+
+    .pairing-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 14px;
+    }
+    .rubber-slot {
+      background: rgba(12, 16, 26, 0.95);
+      border-radius: 6px;
+      padding: 15px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+    .rubber-slot.fh-slot { border-top: 4px solid var(--flame-red); }
+    .rubber-slot.bh-slot { border-top: 4px solid var(--nitro-cyan); }
+    .slot-label {
+      font-family: var(--font-display);
+      font-size: 0.74rem;
+      letter-spacing: 1.5px;
+      margin-bottom: 6px;
+    }
+    .slot-rubber-title {
+      font-size: 1.2rem;
+      font-weight: 900;
+      margin-bottom: 6px;
+    }
+    .slot-specs-tag {
+      display: inline-block;
+      font-size: 0.75rem;
+      background: rgba(255,255,255,0.08);
+      padding: 3px 8px;
+      border-radius: 3px;
+      margin-bottom: 8px;
+      color: var(--champ-gold);
+    }
+    .slot-reason {
+      font-size: 0.85rem;
+      line-height: 1.6;
+      color: #cbd5e1;
+    }
+
+    .switch-banner {
+      margin-top: 16px;
+      padding: 14px 16px;
+      background: rgba(0, 240, 255, 0.08);
+      border: 1px dashed var(--nitro-cyan);
+      border-radius: 6px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    /* SLIDE 5: SUMMARY & EXPORT */
+    .summary-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 20px;
+    }
+    .tune-btn-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 12px 0;
+    }
+    .tune-btn {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.18);
+      color: #fff;
+      padding: 8px 14px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 0.85rem;
+    }
+    .tune-btn.active {
+      background: rgba(0, 240, 255, 0.2);
+      border-color: var(--nitro-cyan);
+      color: var(--nitro-cyan);
+    }
+
+    /* Bottom Footer Presentation Controls */
+    .slide-footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 99;
+      background: rgba(7, 9, 14, 0.94);
+      border-top: 1px solid rgba(0, 240, 255, 0.25);
+      padding: 10px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .slide-progress {
+      font-family: var(--font-display);
+      font-size: 0.85rem;
+      color: var(--nitro-cyan);
+    }
+    .footer-controls {
+      display: flex;
+      gap: 10px;
+    }
+    .btn-step {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #fff;
+      padding: 7px 16px;
+      font-weight: 700;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: all 0.2s;
+    }
+    .btn-step:hover:not(:disabled) {
+      border-color: var(--nitro-cyan);
+      color: var(--nitro-cyan);
+    }
+    .btn-step:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+
+    /* Toast Notification */
+    .nitro-toast {
+      position: fixed;
+      top: 76px;
+      right: 24px;
+      z-index: 200;
+      background: linear-gradient(135deg, #101828, #1a2438);
+      border-left: 4px solid var(--nitro-cyan);
+      color: #fff;
+      padding: 12px 18px;
+      border-radius: 4px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.65);
+      font-size: 0.88rem;
+      font-weight: 700;
+      transform: translateX(140%);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .nitro-toast.show {
+      transform: translateX(0);
+    }
+
+    @media (max-width: 960px) {
+      .hero-grid, .duel-layout, .cockpit-grid, .summary-grid {
+        grid-template-columns: 1fr;
+      }
+      .pairing-cards {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Animated Racing Streaks -->
+  <div class="speed-lines">
+    <div class="speed-line" style="top: 15%; width: 320px; animation-delay: 0s;"></div>
+    <div class="speed-line orange" style="top: 32%; width: 480px; animation-delay: 0.7s;"></div>
+    <div class="speed-line" style="top: 58%; width: 260px; animation-delay: 1.4s;"></div>
+    <div class="speed-line orange" style="top: 79%; width: 410px; animation-delay: 0.3s;"></div>
+  </div>
+
+  <!-- Toast -->
+  <div id="nitroToast" class="nitro-toast">NITRO SYSTEM READY</div>
+
+  <!-- Top HUD Navigation -->
+  <header class="hud-header">
+    <div class="brand-logo">
+      <div class="brand-badge">NITRO 2026</div>
+      <div class="brand-title">TURBO SPIN <span>// TABLE TENNIS LAB</span></div>
+    </div>
+
+    <nav class="slide-nav" id="slideNav">
+      <button class="nav-btn active" onclick="goSlide(0)">01 極速開場</button>
+      <button class="nav-btn" onclick="goSlide(1)">02 膠皮圖鑑特性</button>
+      <button class="nav-btn" onclick="goSlide(2)">03 雙皮數據對決</button>
+      <button class="nav-btn" onclick="goSlide(3)">04 法蘭克福選手配對</button>
+      <button class="nav-btn" onclick="goSlide(4)">05 客製規格與匯出</button>
+    </nav>
+
+    <div class="hud-actions">
+      <div class="driver-input-wrap">
+        <label for="userDriverName">DRIVER:</label>
+        <input type="text" id="userDriverName" value="球友極速車手" maxlength="16" oninput="updateDriverName()" />
+      </div>
+      <button class="btn-nitro" onclick="downloadPresentationHTML()">⬇ 下載此簡報 (.HTML)</button>
+    </div>
+  </header>
+
+  <!-- Main Presentation Stage -->
+  <main class="stage">
+
+    <!-- ==================== SLIDE 1: HERO COVER ==================== -->
+    <section class="slide active" id="slide-0">
+      <div class="hero-grid">
+        <div>
+          <div class="hero-kicker">2026 JAPAN &amp; WORLD RUBBER TECH × WTT FRANKFURT</div>
+          <h1 class="hero-h1">
+            極速旋轉・<span class="accent-orange">玩命級</span>膠皮改裝<br>
+            <span class="accent-cyan">2026 WTT 法蘭克福</span> 實戰配對簡報
+          </h1>
+          <p class="hero-desc">
+            桌球正如賽道上的極速狂飆——每一毫秒的擊球滯留（Dwell Time）、每一次 Ricosheet 超薄面膠與高密度海綿的氮氣爆發，都決定了誰能稱霸無限競技場（Infinity ∞ Arena）。<br>
+            本互動簡報帶您全面解析 <strong>2026 日本暨世界頂級桌球膠皮</strong> 特性，並以 <strong>2026 年 11 月 WTT 法蘭克福冠軍賽</strong> 男、女頂尖選手為藍本，打造專屬正、反面戰術配對！
+          </p>
+
+          <div class="hero-stats">
+            <div class="stat-box">
+              <div class="stat-num">8+</div>
+              <div class="stat-label">2026 日系＆世界旗艦膠皮</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-num">8 位</div>
+              <div class="stat-label">2026 WTT 法蘭克福男女強將</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-num">100 SPIN</div>
+              <div class="stat-label">Zyre 03 新世代旋轉峰值</div>
+            </div>
+          </div>
+
+          <div style="display:flex; flex-wrap:wrap; gap:12px;">
+            <button class="btn-nitro" onclick="goSlide(3)">🔥 立即挑選選手配對膠皮</button>
+            <button class="btn-nitro btn-cyan" onclick="goSlide(1)">📊 瀏覽 2026 膠皮特性對比</button>
+          </div>
+        </div>
+
+        <!-- Speedometer Visual -->
+        <div class="tachometer-card">
+          <svg viewBox="0 0 320 250" width="100%" style="max-width:340px;">
+            <defs>
+              <linearGradient id="rpmGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#00f0ff"/>
+                <stop offset="55%" stop-color="#ffd000"/>
+                <stop offset="100%" stop-color="#ff1e42"/>
+              </linearGradient>
+            </defs>
+            <!-- Outer Dial -->
+            <path d="M 40 200 A 125 125 0 1 1 280 200" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="18" stroke-linecap="round"/>
+            <path d="M 40 200 A 125 125 0 1 1 268 135" fill="none" stroke="url(#rpmGrad)" stroke-width="18" stroke-linecap="round"/>
+            <!-- Tick Marks -->
+            <circle cx="160" cy="155" r="90" fill="none" stroke="rgba(0,240,255,0.2)" stroke-dasharray="4 8" stroke-width="2"/>
+            <!-- Needle -->
+            <line x1="160" y1="155" x2="245" y2="95" stroke="#ff4d00" stroke-width="5" stroke-linecap="round"/>
+            <circle cx="160" cy="155" r="12" fill="#00f0ff" stroke="#07090e" stroke-width="3"/>
+            <text x="160" y="196" text-anchor="middle" fill="#ffffff" font-family="Orbitron, sans-serif" font-size="22" font-weight="900">142 KM/H</text>
+            <text x="160" y="218" text-anchor="middle" fill="#00f0ff" font-family="Orbitron, sans-serif" font-size="10" letter-spacing="2">PEAK COUNTER-LOOP VELOCITY</text>
+          </svg>
+
+          <div style="margin-top:10px; text-align:left; background:rgba(0,0,0,0.4); padding:12px 14px; border-radius:6px; border-left:3px solid var(--champ-gold);">
+            <div style="font-size:0.75rem; color:var(--champ-gold); font-weight:800; font-family:var(--font-display);">2026 WTT FRANKFURT CHAMPIONS</div>
+            <div style="font-size:0.88rem; margin-top:4px; line-height:1.5;">
+              🏆 男單冠軍：<strong>張本智和 (JPN)</strong> 4-2 逆轉 Patrick Franziska<br>
+              🏆 女單冠軍：<strong>早田希娜 (JPN)</strong> 4-2 擊敗 大藤沙月 (成功衛冕)
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SLIDE 2: RUBBER COMPARISON CATALOG ==================== -->
+    <section class="slide" id="slide-1">
+      <div class="slide-header">
+        <div>
+          <div class="slide-tag">STAGE 02 // 2026 RUBBER ARSENAL</div>
+          <h2 class="slide-title">2026 日本暨世界頂級<span>膠皮特性對比</span></h2>
+        </div>
+        <div style="font-size:0.82rem; color:var(--text-muted);">
+          點擊篩選分類，快速掌握 2026 最新面膠科技、海綿硬度與實戰定位
+        </div>
+      </div>
+
+      <div class="filter-bar" id="rubberFilterBar">
+        <button class="filter-pill active" onclick="filterRubbers('all', this)">🔥 全部頂級膠皮 (8)</button>
+        <button class="filter-pill" onclick="filterRubbers('jp', this)">🇯🇵 日本品牌 / 日製旗艦</button>
+        <button class="filter-pill" onclick="filterRubbers('new2026', this)">⚡ 2025末-2026最新世代</button>
+        <button class="filter-pill" onclick="filterRubbers('hybrid', this)">🌀 微黏 / 國套黏性高旋轉</button>
+        <button class="filter-pill" onclick="filterRubbers('euro', this)">🚀 歐系高彈暴力輸出</button>
+      </div>
+
+      <div class="rubber-grid" id="rubberGrid"></div>
+    </section>
+
+    <!-- ==================== SLIDE 3: INTERACTIVE DUEL & RADAR ==================== -->
+    <section class="slide" id="slide-2">
+      <div class="slide-header">
+        <div>
+          <div class="slide-tag">STAGE 03 // NITRO DYNO TEST</div>
+          <h2 class="slide-title">膠皮雙雄<span>實戰數據雷達對決</span></h2>
+        </div>
+        <div style="font-size:0.82rem; color:var(--text-muted);">
+          自由切換兩側下拉選單，即時比對日系、黏性與歐系膠皮的五維戰鬥力
+        </div>
+      </div>
+
+      <div class="duel-layout">
+        <!-- Rubber A -->
+        <div class="hud-panel">
+          <div style="font-family:var(--font-display); font-size:0.75rem; color:var(--nitro-cyan); margin-bottom:6px;">CORNER A // NITRO CYAN</div>
+          <select id="duelSelectA" class="duel-selector" onchange="renderDuel()"></select>
+          <div id="duelDetailsA"></div>
+        </div>
+
+        <!-- Center Radar SVG -->
+        <div class="hud-panel gold-top" style="display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;">
+          <div class="vs-badge">DYNO RADAR // A vs B</div>
+          <svg id="radarSvg" viewBox="0 0 340 310" width="100%" style="max-width:350px; margin:8px 0;"></svg>
+          <div id="duelVerdict" style="font-size:0.86rem; line-height:1.6; color:#dbe6f8; background:rgba(0,0,0,0.4); padding:10px 14px; border-radius:6px; width:100%;"></div>
+        </div>
+
+        <!-- Rubber B -->
+        <div class="hud-panel orange-top">
+          <div style="font-family:var(--font-display); font-size:0.75rem; color:var(--turbo-orange); margin-bottom:6px;">CORNER B // TURBO ORANGE</div>
+          <select id="duelSelectB" class="duel-selector p2" onchange="renderDuel()"></select>
+          <div id="duelDetailsB"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SLIDE 4: WTT FRANKFURT 2026 PLAYER PAIRING LAB ==================== -->
+    <section class="slide" id="slide-3">
+      <div class="slide-header">
+        <div>
+          <div class="slide-tag">STAGE 04 // 2026 WTT CHAMPIONS FRANKFURT GARAGE</div>
+          <h2 class="slide-title">法蘭克福選手戰隊庫：<span>正反面膠皮配對</span></h2>
+        </div>
+        <div class="filter-bar" style="margin-bottom:0;">
+          <button class="filter-pill active" onclick="filterPlayers('all', this)">全部選手 (8)</button>
+          <button class="filter-pill" onclick="filterPlayers('M', this)">♂ 男子單打 (4)</button>
+          <button class="filter-pill" onclick="filterPlayers('F', this)">♀ 女子單打 (4)</button>
+        </div>
+      </div>
+
+      <!-- Player Selection Grid -->
+      <div class="player-roster-grid" id="playerRoster"></div>
+
+      <!-- Selected Player Cockpit -->
+      <div class="cockpit-grid" id="playerCockpit">
+        <!-- Left: Visual Interactive Racket + Player Bio -->
+        <div class="racket-showcase">
+          <div id="cockpitPlayerBadge" style="font-family:var(--font-display); font-size:0.78rem; color:var(--champ-gold); letter-spacing:1.5px;"></div>
+          <h3 id="cockpitPlayerName" style="font-size:1.65rem; font-weight:900; margin:4px 0;"></h3>
+          <div id="cockpitPlayerRecord" style="font-size:0.84rem; color:var(--nitro-cyan); font-weight:700; margin-bottom:8px;"></div>
+
+          <!-- Toggle FH / BH on SVG Paddle -->
+          <div class="side-toggle">
+            <button class="side-btn active fh" id="btnShowFH" onclick="togglePaddleSide('fh')">🔴 正面 (正手 FH)</button>
+            <button class="side-btn" id="btnShowBH" onclick="togglePaddleSide('bh')">⚫ 反面 (反手 BH)</button>
+          </div>
+
+          <!-- Interactive SVG Racket -->
+          <div style="margin:6px auto; max-width:210px;">
+            <svg id="paddleSvg" viewBox="0 0 220 270" width="100%">
+              <defs>
+                <radialGradient id="rubberRed" cx="40%" cy="35%" r="70%">
+                  <stop offset="0%" stop-color="#ff3b5c"/>
+                  <stop offset="100%" stop-color="#a8001d"/>
+                </radialGradient>
+                <radialGradient id="rubberBlack" cx="40%" cy="35%" r="70%">
+                  <stop offset="0%" stop-color="#374151"/>
+                  <stop offset="100%" stop-color="#0d1117"/>
+                </radialGradient>
+                <linearGradient id="woodHandle" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#5c3a21"/>
+                  <stop offset="50%" stop-color="#a87043"/>
+                  <stop offset="100%" stop-color="#4a2e19"/>
+                </linearGradient>
+              </defs>
+              <!-- Handle -->
+              <path d="M 93 175 L 86 255 Q 110 263 134 255 L 127 175 Z" fill="url(#woodHandle)" stroke="#d9a066" stroke-width="1.5"/>
+              <rect x="103" y="182" width="14" height="65" rx="3" fill="#00f0ff" opacity="0.75"/>
+              <!-- Blade Rim -->
+              <ellipse cx="110" cy="102" rx="78" ry="86" fill="#d9b382" stroke="#ffd000" stroke-width="2.5"/>
+              <!-- Rubber Face -->
+              <ellipse id="paddleRubberFace" cx="110" cy="100" rx="74" ry="82" fill="url(#rubberRed)"/>
+              <!-- Shine -->
+              <path d="M 62 55 Q 110 25 156 58" fill="none" stroke="rgba(255,255,255,0.28)" stroke-width="5" stroke-linecap="round"/>
+              <!-- Text Label on Paddle -->
+              <text id="paddleLabelSide" x="110" y="88" text-anchor="middle" fill="#ffffff" font-family="Orbitron, sans-serif" font-size="11" font-weight="700" opacity="0.9">FOREHAND // 正手</text>
+              <text id="paddleLabelRubber" x="110" y="112" text-anchor="middle" fill="#ffd000" font-family="Noto Sans TC, sans-serif" font-size="13" font-weight="900">Zyre 03</text>
+              <text id="paddleLabelBlade" x="110" y="140" text-anchor="middle" fill="rgba(255,255,255,0.75)" font-family="Noto Sans TC, sans-serif" font-size="9.5">底板標記</text>
+            </svg>
+          </div>
+
+          <div id="cockpitBladeNote" style="font-size:0.8rem; color:var(--text-muted); margin-top:4px;"></div>
+        </div>
+
+        <!-- Right: Player Style Analysis + FH/BH Cards + Switch Option -->
+        <div class="hud-panel orange-top">
+          <div style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:10px; margin-bottom:10px;">
+            <div>
+              <span style="font-family:var(--font-display); font-size:0.74rem; color:var(--turbo-orange); letter-spacing:1.5px;">DRIVER TELEMETRY // 選手打法解析</span>
+              <div id="cockpitStyleTitle" style="font-size:1.1rem; font-weight:800; margin-top:2px;"></div>
+            </div>
+            <!-- Mode Switcher: Pro Official vs 2026 JP Value Alternative -->
+            <div class="tune-btn-group" style="margin:0;">
+              <button class="tune-btn active" id="modeProBtn" onclick="setSetupMode('pro')">🏆 選手本尊原配</button>
+              <button class="tune-btn" id="modeAltBtn" onclick="setSetupMode('alt')">🇯🇵 進階球友日系調校版</button>
+            </div>
+          </div>
+
+          <p id="cockpitStyleDesc" style="font-size:0.88rem; line-height:1.65; color:#cdd9ec; margin-bottom:12px;"></p>
+
+          <!-- FH & BH Pairing Cards -->
+          <div class="pairing-cards">
+            <div class="rubber-slot fh-slot">
+              <div class="slot-label" style="color:#ff5e78;">FOREHAND // 正面（正手）膠皮</div>
+              <div class="slot-rubber-title" id="fhRubberName"></div>
+              <div class="slot-specs-tag" id="fhRubberSpec"></div>
+              <div class="slot-reason" id="fhRubberReason"></div>
+            </div>
+
+            <div class="rubber-slot bh-slot">
+              <div class="slot-label" style="color:var(--nitro-cyan);">BACKHAND // 反面（反手）膠皮</div>
+              <div class="slot-rubber-title" id="bhRubberName"></div>
+              <div class="slot-specs-tag" id="bhRubberSpec"></div>
+              <div class="slot-reason" id="bhRubberReason"></div>
+            </div>
+          </div>
+
+          <!-- Not what user wants? Switch Player CTA -->
+          <div class="switch-banner">
+            <div>
+              <div style="font-weight:800; font-size:0.92rem; color:#fff;">
+                <span id="bannerDriverName">球友極速車手</span>：這組選手配對不是您要的打法嗎？
+              </div>
+              <div style="font-size:0.8rem; color:var(--text-muted);">
+                您可以立即切換下一位法蘭克福男女選手，或點選上方選手卡片重新配對！
+              </div>
+            </div>
+            <div style="display:flex; gap:8px; flex-wrap:wrap;">
+              <button class="btn-nitro btn-cyan" onclick="switchNextPlayer()">🔄 換下一位選手</button>
+              <button class="btn-nitro" onclick="goSlide(4)">⚡ 鎖定配對並前往匯出</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SLIDE 5: SUMMARY & DOWNLOAD SPEC ==================== -->
+    <section class="slide" id="slide-4">
+      <div class="slide-header">
+        <div>
+          <div class="slide-tag">STAGE 05 // FINAL GARAGE BUILD &amp; EXPORT</div>
+          <h2 class="slide-title">專屬球拍改裝總結與<span>下載配對單</span></h2>
+        </div>
+      </div>
+
+      <div class="summary-grid">
+        <div class="hud-panel">
+          <div style="font-family:var(--font-display); font-size:0.78rem; color:var(--nitro-cyan); letter-spacing:1.5px; margin-bottom:8px;">
+            PERSONALIZED GARAGE TICKET // 您的專屬配置清單
+          </div>
+          <div id="finalSpecCard" style="background:rgba(0,0,0,0.45); border:1px solid rgba(0,240,255,0.28); border-radius:8px; padding:18px; line-height:1.7;"></div>
+
+          <div style="margin-top:16px;">
+            <div style="font-weight:800; font-size:0.9rem; margin-bottom:6px;">想要微調球拍風格？（即時改變配對模式）</div>
+            <div class="tune-btn-group">
+              <button class="tune-btn active" id="finalModePro" onclick="setSetupMode('pro')">🏆 WTT 選手職業原配（極限輸出）</button>
+              <button class="tune-btn" id="finalModeAlt" onclick="setSetupMode('alt')">🇯🇵 日系進階親民版（高控制高性價比）</button>
+              <button class="tune-btn" onclick="switchNextPlayer(); goSlide(3);">🔄 返回換一位選手</button>
+            </div>
+          </div>
+
+          <div style="margin-top:18px; display:flex; flex-wrap:wrap; gap:12px;">
+            <button class="btn-nitro" onclick="downloadSpecSheet()">📄 下載我的選手配對規格卡 (.HTML)</button>
+            <button class="btn-nitro btn-cyan" onclick="downloadPresentationHTML()">⬇ 下載整份互動簡報 (.HTML)</button>
+          </div>
+        </div>
+
+        <div class="hud-panel orange-top">
+          <div style="font-family:var(--font-display); font-size:0.78rem; color:var(--turbo-orange); letter-spacing:1.5px; margin-bottom:10px;">
+            2026 膠皮選購與改裝黃金法則
+          </div>
+          <ul style="list-style:none; display:flex; flex-direction:column; gap:12px; font-size:0.88rem; line-height:1.6;">
+            <li style="padding:10px; background:rgba(255,255,255,0.04); border-left:3px solid var(--turbo-orange);">
+              <strong>1. 2026 新指標 Butterfly Zyre 03：</strong><br>
+              採用 Ricosheet 超薄面膠 + 最厚 2.5/2.7mm Spring Sponge X，旋轉高達 100、弧線 96，適合敢於主動摩擦、壓低板型對拉的進攻型車手。
+            </li>
+            <li style="padding:10px; background:rgba(255,255,255,0.04); border-left:3px solid var(--nitro-cyan);">
+              <strong>2. 黏性混血（09C / K3 Pro）vs 純黏藍海綿：</strong><br>
+              如 早田希娜、大藤沙月 正手使用「藍海綿狂飆」壓迫二跳下墜；一般進階球友則建議選擇 <strong>Dignics 09C</strong> 或 <strong>Hybrid K3 Pro</strong>，無需頻繁灌油即可擁有強大旋轉與彈性。
+            </li>
+            <li style="padding:10px; background:rgba(255,255,255,0.04); border-left:3px solid var(--champ-gold);">
+              <strong>3. 2026 日系高性價比新星 Nittaku Blastac：</strong><br>
+              2026 年登場的 45° 日規中軟海綿膠皮，在碳纖維底板上擁有極佳的咬球感與擋球穩定度，非常適合作為一般球友的反手首選。
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Bottom Presentation Controls -->
+  <footer class="slide-footer">
+    <div class="slide-progress" id="slideProgress">SLIDE 01 / 05 — 極速開場</div>
+    <div class="footer-controls">
+      <button class="btn-step" id="prevSlideBtn" onclick="stepSlide(-1)" disabled>◀ 上一頁</button>
+      <button class="btn-step" id="nextSlideBtn" onclick="stepSlide(1)">下一頁 ▶</button>
+    </div>
+  </footer>
+
+  <script>
+    // ==================== 1. 2026 RUBBER DATABASE ====================
+    const rubbers = [
+      {
+        id: "zyre03",
+        name: "Butterfly Zyre 03",
+        brand: "BUTTERFLY 蝴蝶",
+        origin: "🇯🇵 日本製造",
+        category: ["jp", "new2026"],
+        is2026: true,
+        badge: "2026 旗艦王者",
+        hardness: "44° (日規 / Spring Sponge X 2.5-2.7mm)",
+        stats: { speed: 95, spin: 100, arc: 96, control: 72, power: 96 },
+        official: "Speed 88 / Spin 100 / Arc 96",
+        summary: "搭載最新 Ricosheet 超薄顆粒面膠與史上最厚 Spring Sponge X，兼具超強咬球摩擦與高弧線深穿透力。張本智和、林昀儒、法蘭茲卡與早田希娜反手實戰選用。"
+      },
+      {
+        id: "dignics09c",
+        name: "Butterfly Dignics 09C",
+        brand: "BUTTERFLY 蝴蝶",
+        origin: "🇯🇵 日本製造",
+        category: ["jp", "hybrid"],
+        is2026: false,
+        badge: "微黏混血霸主",
+        hardness: "44° (日規 / High Friction 微黏)",
+        stats: { speed: 84, spin: 97, arc: 96, control: 86, power: 91 },
+        official: "Speed 79 / Spin 96 / Arc 96",
+        summary: "結合日系高張力海綿與微黏性面膠，台內搓擺極短不冒高，發力拉衝旋轉極重且穩定。張本美和、戶上隼輔正手與法蘭茲卡反手主力。"
+      },
+      {
+        id: "dignics05",
+        name: "Butterfly Dignics 05",
+        brand: "BUTTERFLY 蝴蝶",
+        origin: "🇯🇵 日本製造",
+        category: ["jp"],
+        is2026: false,
+        badge: "全能高速弧圈",
+        hardness: "40° (日規 / Spring Sponge X)",
+        stats: { speed: 91, spin: 89, arc: 88, control: 84, power: 88 },
+        official: "Speed 86 / Spin 85 / Arc 88",
+        summary: "中近台極速反拉與連續撕打的黃金標準，出球清脆且具備極高耐磨度，林昀儒、張本美和反手高速對抗的核心武器。"
+      },
+      {
+        id: "blastac",
+        name: "Nittaku Blastac",
+        brand: "NITTAKU 尼塔庫",
+        origin: "🇯🇵 日本品牌 (2026新作)",
+        category: ["jp", "new2026"],
+        is2026: true,
+        badge: "2026 控球進攻新品",
+        hardness: "45° (日規中軟 / 高咬球張力)",
+        stats: { speed: 82, spin: 87, arc: 86, control: 94, power: 80 },
+        official: "均衡進攻 / 高容錯穩定防禦",
+        summary: "2026 年備受矚目的日系新品！針對碳纖維底板調校，45° 中軟海綿提供極長持球感，輕拉起板輕鬆、擋球精準，進階球友反手改裝首選。"
+      },
+      {
+        id: "v22",
+        name: "VICTAS V>22 Double Extra",
+        brand: "VICTAS 維克塔斯",
+        origin: "🇯🇵 日本研發 / 🇩🇪 德製",
+        category: ["jp", "euro"],
+        is2026: false,
+        badge: "日系暴力速度",
+        hardness: "50° (德規 / 開放氣孔海綿)",
+        stats: { speed: 94, spin: 90, arc: 82, control: 80, power: 93 },
+        official: "Speed 9.0 / Spin 9.1 / Hardness 50°",
+        summary: "由多位世界名將參與開發的 Select 高抓力面膠，中遠台對轟爆發力驚人，出球軌道低平兇猛，適合積極發力的兩面弧圈選手。"
+      },
+      {
+        id: "h3blue",
+        name: "DHS 狂飆3 國套藍海綿",
+        brand: "DHS 紅雙喜",
+        origin: "🇨🇳 中國製造",
+        category: ["hybrid"],
+        is2026: false,
+        badge: "世界黏性天花板",
+        hardness: "40°-41° (DHS 硬度 / 藍海綿)",
+        stats: { speed: 80, spin: 99, arc: 85, control: 85, power: 97 },
+        official: "高黏性面膠 + 高密度藍海綿",
+        summary: "世界女子頂尖強打早田希娜、大藤沙月正手標配。強發力下擁有無人能敵的一速壓迫與二跳下墜賊感，但對揮拍速度與發力要求極高。"
+      },
+      {
+        id: "k3pro",
+        name: "TIBHAR Hybrid K3 Pro",
+        brand: "TIBHAR 挺拔",
+        origin: "🇩🇪 德國製造",
+        category: ["hybrid", "euro"],
+        is2026: false,
+        badge: "歐系高硬微黏",
+        hardness: "55° (德規 / Pro 硬海綿)",
+        stats: { speed: 89, spin: 95, arc: 90, control: 81, power: 94 },
+        official: "高硬度微黏混血 / 強勢擰拉",
+        summary: "Hybrid K3 的強化職業版，在保留德國套膠清脆彈射感的同時，大幅強化台內搓球下旋與反拉穿透力，堪稱歐系對標 D09C 的強力武器。"
+      },
+      {
+        id: "nuzn55",
+        name: "andro NUZN 55",
+        brand: "andro 岸度",
+        origin: "🇩🇪 德國製造",
+        category: ["euro", "new2026"],
+        is2026: true,
+        badge: "極速重砲微黏",
+        hardness: "55° (德規 / 超高張力)",
+        stats: { speed: 96, spin: 91, arc: 84, control: 76, power: 96 },
+        official: "55° 極致穿透 / 德系重砲",
+        summary: "德國一姐 Sabine Winter 實戰裝備！結合微黏表層與 55° 高硬度海綿，專為正手暴力抽殺與近台壓迫而生的純種速度機器。"
+      }
+    ];
+
+    // ==================== 2. 2026 WTT FRANKFURT PLAYERS ====================
+    const players = [
+      {
+        id: "harimoto_t",
+        name: "張本智和",
+        en: "Tomokazu HARIMOTO",
+        country: "🇯🇵 日本",
+        gender: "M",
+        rankBadge: "🏆 男單冠軍",
+        pillClass: "pill-champ",
+        result2026: "2026 WTT 法蘭克福 男單冠軍 (決賽 4-2 勝 Franziska)",
+        styleTitle: "超近台氮氣高速壓迫 × 兩面極速變線",
+        styleDesc: "在法蘭克福奪下生涯第10座 WTT 冠軍！張本智和以貼近球台的極快擺速、反手閃電擰拉與高速對轟聞名，要求膠皮必須在極短引拍時間內產生巨大旋轉與深落點。",
+        blade: "Butterfly Harimoto Innerforce Super ALC",
+        proSetup: {
+          fh: { name: "Butterfly Zyre 03 (2.7mm)", spec: "硬度 44° | Spin 100 / Speed 88", reason: "2.7mm 最厚海綿賦予正手對拉驚人二跳弧線，即使近台來不及大動作拉手也能借力加速反衝。" },
+          bh: { name: "Butterfly Zyre 03 (2.5mm)", spec: "硬度 44° | Ricosheet 超薄面膠", reason: "反手快撕與反帶對方的暴衝時不易滑球，回球直接頂到底線，把速度節奏拉到對手無法喘息。" }
+        },
+        altSetup: {
+          fh: { name: "Butterfly Dignics 05", spec: "硬度 40° | 更易透板", reason: "一般進階球友若揮拍速度未達職業級，D05 提供更清晰的手感與更穩定的起下旋容錯。" },
+          bh: { name: "Nittaku Blastac (2026款)", spec: "硬度 45° 日規中軟 | 高控球", reason: "保留近台變線靈活性，大幅提升擋球與反手快撥穩定性，不易因過彈而出界。" }
+        }
+      },
+      {
+        id: "franziska",
+        name: "派翠克·法蘭茲卡",
+        en: "Patrick FRANZISKA",
+        country: "🇩🇪 德國",
+        gender: "M",
+        rankBadge: "🥈 男單亞軍",
+        pillClass: "pill-final",
+        result2026: "2026 WTT 法蘭克福 男單亞軍 (地主連克松島輝空、戶上隼輔)",
+        styleTitle: "歐系寬幅重砲 × 反手擰拉控場",
+        styleDesc: "法蘭茲卡在 2026 法蘭克福主場氣勢如虹，靠著大範圍左右調動、高品質發球搶攻與極具殺傷力的中遠台對拉闖入決賽，是少數將 Zyre 03 與 D09C 混搭得淋漓盡致的歐洲名將。",
+        blade: "Butterfly Franziska Innerforce ZLC",
+        proSetup: {
+          fh: { name: "Butterfly Zyre 03", spec: "硬度 44° | Arc 96 高弧線", reason: "正手大角度拉衝與中遠台反拉需要極強的「上台率與前衝感」，Zyre 03 的弧線延伸性完美釋放 ZLC 威力。" },
+          bh: { name: "Butterfly Dignics 09C", spec: "硬度 44° | 微黏高摩擦", reason: "反手接發球需要細膩的擺短與強旋轉擰拉，D09C 的微黏面膠讓歐洲大個子選手在台內也能精準咬球。" }
+        },
+        altSetup: {
+          fh: { name: "VICTAS V>22 Double Extra", spec: "硬度 50° 德規 | 中遠台重砲", reason: "保留歐系正手暴衝穿透力，價格更親民且發力門檻較 Zyre 03 稍微友善。" },
+          bh: { name: "TIBHAR Hybrid K3 Pro", spec: "硬度 55° 微黏 | 德系混血", reason: "微黏高摩擦起下旋極穩，適合喜歡用反手先擰起來再轉入正手強攻的球友。" }
+        }
+      },
+      {
+        id: "lin_yj",
+        name: "林昀儒",
+        en: "LIN Yun-Ju",
+        country: "🇹🇼 中華台北",
+        gender: "M",
+        rankBadge: "🥉 男單四強",
+        pillClass: "pill-semi",
+        result2026: "2026 WTT 法蘭克福 男單四強 (四強 3-4 惜敗張本智和)",
+        styleTitle: "左手沉默殺手 × 反手閃電擰拉變線",
+        styleDesc: "林昀儒的反手擰拉被公認為世界頂尖，節奏奇快且隱蔽性極高；2026 賽季他在正手換上 Zyre 03 強化一板穿透力，反手則回歸極致流暢的 Dignics 05。",
+        blade: "Butterfly Viscaria Super ALC",
+        proSetup: {
+          fh: { name: "Butterfly Zyre 03", spec: "硬度 44° | Spin 100 強化正手", reason: "補強左手正手位的單板質量與相持厚度，中台反拉時能製造出極具壓迫感的深落點旋轉。" },
+          bh: { name: "Butterfly Dignics 05", spec: "硬度 40° | Speed 86 絲滑變線", reason: "林昀儒反手重視「快、準、變」，D05 的清脆回彈讓他的反手擰、快撕與直線突擊如水銀瀉地。" }
+        },
+        altSetup: {
+          fh: { name: "Butterfly Dignics 09C", spec: "硬度 44° | 強化正手短球控制", reason: "對於想學小林正手配合發球搶攻的球友，09C 提供更高的發球旋轉與搓球精準度。" },
+          bh: { name: "Nittaku Blastac (2026款)", spec: "硬度 45° | 輕鬆借力擰拉", reason: "極佳的持球感讓業餘球友也能安全複製反手台內擰拉與借力快彈。" }
+        }
+      },
+      {
+        id: "togami",
+        name: "戶上隼輔",
+        en: "Shunsuke TOGAMI",
+        country: "🇯🇵 日本",
+        gender: "M",
+        rankBadge: "🥉 男單四強",
+        pillClass: "pill-semi",
+        result2026: "2026 WTT 法蘭克福 男單四強 (反手暴擰震撼法蘭克福)",
+        styleTitle: "日本暴力兩面弧圈 × 剛猛反手爆抽",
+        styleDesc: "戶上隼輔以男子罕見的兇狠發力與正反手連續爆衝著稱，在法蘭克福接連以反手擰拉撕裂對手防線，屬於「正手求重旋轉、反手求極限壓迫」的進攻猛獸。",
+        blade: "Butterfly Fan Zhendong ALC",
+        proSetup: {
+          fh: { name: "Butterfly Dignics 09C", spec: "硬度 44° | 極限起下旋重砲", reason: "搭配硬挺的 FZD ALC 外置纖維，D09C 讓戶上的正手暴衝擁有「既轉又頂」的恐怖壓迫力。" },
+          bh: { name: "Butterfly Zyre 03", spec: "硬度 44° | 反手暴力對轟", reason: "反手面對對手強攻時，Zyre 03 的高弧線容錯與強反彈讓他敢於直接反手硬碰硬對抽。" }
+        },
+        altSetup: {
+          fh: { name: "TIBHAR Hybrid K3 Pro", spec: "硬度 55° 微黏 | 強力暴衝", reason: "高硬度微黏特性提供接近 D09C 的旋轉咬球，同時保有德系膠皮的爽快炸響聲。" },
+          bh: { name: "VICTAS V>22 Double Extra", spec: "硬度 50° | 兇猛反手撕打", reason: "同樣具備極高反手速度與對拉強度，非常適合喜歡兩面開弓的硬派球友。" }
+        }
+      },
+      {
+        id: "hayata",
+        name: "早田希娜",
+        en: "Hina HAYATA",
+        country: "🇯🇵 日本",
+        gender: "F",
+        rankBadge: "🏆 女單冠軍・衛冕",
+        pillClass: "pill-champ",
+        result2026: "2026 WTT 法蘭克福 女單冠軍 (4-2 勝大藤沙月，成功二連霸)",
+        styleTitle: "左手大刀闊斧正手暴衝 × 2026 反手極速升級",
+        styleDesc: "法蘭克福衛冕女王！早田希娜憑藉身高與步法優勢，正手如男子選手般厚實旋轉；2026 年她更將反手從 D09C 升級至 Butterfly Zyre 03，在多拍相持中徹底壓制隊友與中國強敵。",
+        blade: "Nittaku Hina Hayata H2 (早田希娜特注內碳)",
+        proSetup: {
+          fh: { name: "DHS 狂飆3 國套藍海綿", spec: "DHS 40-41° | 極致黏性二跳下墜", reason: "專為 H2 內置碳素底板打造的絕配，讓她的左手正手弧圈既有強烈下沉感，又能打透底板底勁。" },
+          bh: { name: "Butterfly Zyre 03", spec: "硬度 44° | 2026 最新反手升級", reason: "取代過往的 T05/D09C，Zyre 03 讓她在反手相持時能直接加速變線，減輕體力消耗卻威力倍增。" }
+        },
+        altSetup: {
+          fh: { name: "Butterfly Dignics 09C", spec: "免灌油微黏 | 輕鬆複製二跳下墜", reason: "一般球友打藍海綿容易「打不動」，換成 D09C 搭配 H2 底板，既有黏性旋轉又具備自動噴射彈性！" },
+          bh: { name: "Nittaku Blastac (2026款)", spec: "硬度 45° | 內碳底板完美平衡", reason: "高持球與控制力能完美配合 H2 內置碳板，反手防弧圈與主動彈擊更顯得心應手。" }
+        }
+      },
+      {
+        id: "odo",
+        name: "大藤沙月",
+        en: "Satsuki ODO",
+        country: "🇯🇵 日本",
+        gender: "F",
+        rankBadge: "🥈 女單亞軍",
+        pillClass: "pill-final",
+        result2026: "2026 WTT 法蘭克福 女單亞軍 (四強 4-1 勝 Sabine Winter)",
+        styleTitle: "重型旋轉壓制 × 雙面強勢連續抽殺",
+        styleDesc: "大藤沙月以「揮拍幅度大、擊球打透海綿」的紮實風格聞名，球質極重、旋轉極強，在 2026 法蘭克福重返 WTT 冠軍賽決賽，正反手皆以狂飆黏性體系構築鋼鐵般的相持厚度。",
+        blade: "DHS 狂飆龍5 / Harimoto Innerforce ALC",
+        proSetup: {
+          fh: { name: "DHS 狂飆3 國套藍海綿", spec: "DHS 40°+ | 超重球質與旋轉", reason: "完全匹配她的全力揮拍動作，每一次正手抽殺都帶有極強的頂重感，對手極難借力反彈。" },
+          bh: { name: "DHS Neo 狂飆3 橙海綿", spec: "高控制高旋轉反手黏套", reason: "反手同樣採用黏性海綿，確保反手起下旋的超高穩定性與台內搓球的極致轉度。" }
+        },
+        altSetup: {
+          fh: { name: "TIBHAR Hybrid K3 Pro", spec: "55° 高硬微黏 | 省力版重球質", reason: "保留重砲旋轉感但出球速度更快，不需像純國套那樣每場發全力也能打出威脅。" },
+          bh: { name: "Butterfly Dignics 05", spec: "40° 高彈性 | 提升反手防禦彈射", reason: "讓業餘球友的反手更省力，防守時能輕鬆借力頂回對手重球。" }
+        }
+      },
+      {
+        id: "harimoto_m",
+        name: "張本美和",
+        en: "Miwa HARIMOTO",
+        country: "🇯🇵 日本",
+        gender: "F",
+        rankBadge: "🥉 女單四強",
+        pillClass: "pill-semi",
+        result2026: "2026 WTT 法蘭克福 女單四強 (八強 4-2 力克陳幸同)",
+        styleTitle: "世界前三超新星 × 無縫正反手高速銜接",
+        styleDesc: "年僅 18 歲卻擁有超越年齡的相持穩定度與節奏感！張本美和的正手摩擦紮實、反手快撕犀利且落點極深，Dignics 09C + 05 是當今女子進攻型最經典的黃金配方。",
+        blade: "Butterfly Tomokazu Harimoto Innerforce Super ALC",
+        proSetup: {
+          fh: { name: "Butterfly Dignics 09C", spec: "硬度 44° | Spin 96 穩健暴衝", reason: "微黏表面確保對陣中國主力時，正手高吊與前衝的變化多端，且接發球擺短失誤極低。" },
+          bh: { name: "Butterfly Dignics 05", spec: "硬度 40° | Speed 86 反手快撕", reason: "提供反手對拉的清晰手感與速度優勢，能在高速對攻中隨時轉變直線得分。" }
+        },
+        altSetup: {
+          fh: { name: "Nittaku Blastac (2026款)", spec: "硬度 45° | 輕量化高控弧圈", reason: "若覺得 09C 重量偏重或太硬，Blastac 能提供極佳的發力透板感與連續拉成功率。" },
+          bh: { name: "VICTAS V>22 Double Extra", spec: "硬度 50° | 犀利反手進攻", reason: "提供強勁反手反拉支撐力，性價比極高且上台穩定。" }
+        }
+      },
+      {
+        id: "winter",
+        name: "莎賓·溫特",
+        en: "Sabine WINTER",
+        country: "🇩🇪 德國",
+        gender: "F",
+        rankBadge: "🥉 女單四強",
+        pillClass: "pill-semi",
+        result2026: "2026 WTT 法蘭克福 女單四強 (主場 4-0 橫掃陳熠)",
+        styleTitle: "歐系正手絕對暴力 × 高張力節奏突擊",
+        styleDesc: "德國女單頭號王牌在法蘭克福主場打出巔峰狀態！溫特擁有男子化的正手爆衝絕技，講求一擊必殺的純粹球速與力量貫穿，代表歐洲高張力海綿的最高工藝。",
+        blade: "andro Novacell OFF/S",
+        proSetup: {
+          fh: { name: "andro NUZN 55", spec: "硬度 55° 德規 | 極限正手重砲", reason: "55° 超高硬度海綿與微黏表層，讓溫特的正手平擊爆衝與半出台搶拉具備毀滅性球速。" },
+          bh: { name: "VICTAS V>22 Double Extra", spec: "硬度 50° 德規 | 穩健相持轉換", reason: "反手高抓力表層輔助過渡與變線，為她創造隨時側身用正手 NUZN 55 終結比賽的機會。" }
+        },
+        altSetup: {
+          fh: { name: "Butterfly Dignics 05", spec: "硬度 40° | 更高弧線容錯", reason: "55° 德套對一般球友過於剛硬，D05 能保留驚人速度同時大幅提高拉球上台率。" },
+          bh: { name: "Nittaku Blastac (2026款)", spec: "硬度 45° | 反手節奏控制", reason: "提供歐系重砲手最需要的反手防守容錯與控球穩定度。" }
+        }
+      }
+    ];
+
+    // ==================== 3. STATE MANAGEMENT ====================
+    let currentSlide = 0;
+    const slideTitles = ["極速開場", "膠皮圖鑑特性", "雙皮數據對決", "法蘭克福選手配對", "客製規格與匯出"];
+    let selectedPlayerId = "harimoto_t";
+    let setupMode = "pro"; // "pro" or "alt"
+    let paddleSide = "fh"; // "fh" or "bh"
+
+    // ==================== 4. NAVIGATION & TOAST ====================
+    function showToast(msg) {
+      const t = document.getElementById("nitroToast");
+      t.textContent = "⚡ " + msg;
+      t.classList.add("show");
+      clearTimeout(window._toastTimer);
+      window._toastTimer = setTimeout(() => t.classList.remove("show"), 2600);
+    }
+
+    function goSlide(idx) {
+      if (idx < 0 || idx >= 5) return;
+      currentSlide = idx;
+      document.querySelectorAll(".slide").forEach((s, i) => s.classList.toggle("active", i === idx));
+      document.querySelectorAll(".nav-btn").forEach((b, i) => b.classList.toggle("active", i === idx));
+      document.getElementById("slideProgress").textContent = `SLIDE 0${idx + 1} / 05 — ${slideTitles[idx]}`;
+      document.getElementById("prevSlideBtn").disabled = idx === 0;
+      document.getElementById("nextSlideBtn").disabled = idx === 4;
+      if (idx === 4) renderFinalSummary();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function stepSlide(delta) {
+      goSlide(currentSlide + delta);
+    }
+
+    document.addEventListener("keydown", (e) => {
+      if (document.activeElement.tagName === "INPUT" || document.activeElement.tagName === "SELECT") return;
+      if (e.key === "ArrowRight") stepSlide(1);
+      if (e.key === "ArrowLeft") stepSlide(-1);
+    });
+
+    function updateDriverName() {
+      const val = document.getElementById("userDriverName").value.trim() || "球友極速車手";
+      document.getElementById("bannerDriverName").textContent = val;
+      if (currentSlide === 4) renderFinalSummary();
+    }
+
+    // ==================== 5. SLIDE 2: RUBBER CATALOG ====================
+    function renderRubbers(filter = "all") {
+      const grid = document.getElementById("rubberGrid");
+      const list = filter === "all" ? rubbers : rubbers.filter(r => r.category.includes(filter));
+      grid.innerHTML = list.map(r => `
+        <div class="rubber-card ${r.is2026 ? 'is-2026' : ''}">
+          <div>
+            <div class="rubber-top">
+              <div>
+                <div class="rubber-brand">${r.brand} · ${r.origin}</div>
+                <div class="rubber-name">${r.name}</div>
+              </div>
+              <span class="badge-tag ${r.is2026 ? 'badge-new' : (r.category.includes('hybrid') ? 'badge-hybrid' : 'badge-jp')}">${r.badge}</span>
+            </div>
+
+            <div class="rubber-specs-mini">
+              <div class="mini-bar-wrap">
+                <div class="mini-bar-label"><span>速度 SPEED</span><strong>${r.stats.speed}</strong></div>
+                <div class="mini-bar-track"><div class="mini-bar-fill orange" style="width:${r.stats.speed}%"></div></div>
+              </div>
+              <div class="mini-bar-wrap">
+                <div class="mini-bar-label"><span>旋轉 SPIN</span><strong>${r.stats.spin}</strong></div>
+                <div class="mini-bar-track"><div class="mini-bar-fill" style="width:${r.stats.spin}%"></div></div>
+              </div>
+              <div class="mini-bar-wrap">
+                <div class="mini-bar-label"><span>弧線 ARC</span><strong>${r.stats.arc}</strong></div>
+                <div class="mini-bar-track"><div class="mini-bar-fill" style="width:${r.stats.arc}%"></div></div>
+              </div>
+              <div class="mini-bar-wrap">
+                <div class="mini-bar-label"><span>控制 CTRL</span><strong>${r.stats.control}</strong></div>
+                <div class="mini-bar-track"><div class="mini-bar-fill orange" style="width:${r.stats.control}%"></div></div>
+              </div>
+            </div>
+
+            <p class="rubber-desc">${r.summary}</p>
+          </div>
+          <div class="rubber-meta-row">
+            <span>硬度：${r.hardness.split('/')[0]}</span>
+            <button onclick="sendToDuel('${r.id}')" style="background:rgba(0,240,255,0.15); border:1px solid var(--nitro-cyan); color:var(--nitro-cyan); padding:3px 9px; border-radius:3px; cursor:pointer; font-size:0.75rem; font-weight:700;">⚔ 加入對決</button>
+          </div>
+        </div>
+      `).join("");
+    }
+
+    function filterRubbers(cat, btn) {
+      document.querySelectorAll("#rubberFilterBar .filter-pill").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      renderRubbers(cat);
+    }
+
+    function sendToDuel(rubberId) {
+      document.getElementById("duelSelectA").value = rubberId;
+      renderDuel();
+      goSlide(2);
+      showToast("已載入雷達數據對決場！");
+    }
+
+    // ==================== 6. SLIDE 3: RADAR DUEL ====================
+    function initDuelSelects() {
+      const selA = document.getElementById("duelSelectA");
+      const selB = document.getElementById("duelSelectB");
+      const options = rubbers.map(r => `<option value="${r.id}">${r.name} (${r.badge})</option>`).join("");
+      selA.innerHTML = options;
+      selB.innerHTML = options;
+      selA.value = "zyre03";
+      selB.value = "blastac";
+      renderDuel();
+    }
+
+    function renderDuel() {
+      const a = rubbers.find(r => r.id === document.getElementById("duelSelectA").value) || rubbers[0];
+      const b = rubbers.find(r => r.id === document.getElementById("duelSelectB").value) || rubbers[3];
+
+      const makeDetails = (r, colorClass) => `
+        <div style="font-size:0.8rem; color:var(--text-muted); margin-bottom:10px;">${r.origin} · ${r.hardness}</div>
+        ${[
+          ["速度 Speed", r.stats.speed],
+          ["旋轉 Spin", r.stats.spin],
+          ["弧線 Arc", r.stats.arc],
+          ["控制 Control", r.stats.control],
+          ["爆發力 Power", r.stats.power]
+        ].map(([lbl, val]) => `
+          <div class="duel-stat-row">
+            <div class="duel-stat-top"><span>${lbl}</span><strong style="font-family:var(--font-display);">${val}</strong></div>
+            <div class="mini-bar-track" style="height:8px;"><div class="mini-bar-fill ${colorClass}" style="width:${val}%"></div></div>
+          </div>
+        `).join("")}
+        <div style="margin-top:12px; font-size:0.82rem; line-height:1.55; color:#cdd9ec;">${r.summary}</div>
+      `;
+
+      document.getElementById("duelDetailsA").innerHTML = makeDetails(a, "");
+      document.getElementById("duelDetailsB").innerHTML = makeDetails(b, "orange");
+      drawRadar(a, b);
+
+      // Verdict
+      const winSpin = a.stats.spin >= b.stats.spin ? a.name : b.name;
+      const winCtrl = a.stats.control >= b.stats.control ? a.name : b.name;
+      document.getElementById("duelVerdict").innerHTML = `
+        <strong>⚔ NITRO 實戰分析：</strong><br>
+        極限旋轉與衝擊力由 <span style="color:var(--nitro-cyan); font-weight:800;">${winSpin}</span> 領跑；
+        若您追求近台穩定容錯與控球手感，則推薦 <span style="color:var(--turbo-orange); font-weight:800;">${winCtrl}</span>。
+      `;
+    }
+
+    function drawRadar(a, b) {
+      const svg = document.getElementById("radarSvg");
+      const cx = 170, cy = 155, maxR = 105;
+      const labels = ["速度", "旋轉", "弧線", "控制", "爆發力"];
+      const keys = ["speed", "spin", "arc", "control", "power"];
+      const angles = keys.map((_, i) => (-Math.PI / 2) + (i * 2 * Math.PI / 5));
+
+      let gridHtml = "";
+      [0.25, 0.5, 0.75, 1].forEach(scale => {
+        const pts = angles.map(ang => `${cx + Math.cos(ang) * maxR * scale},${cy + Math.sin(ang) * maxR * scale}`).join(" ");
+        gridHtml += `<polygon points="${pts}" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>`;
+      });
+      angles.forEach((ang, i) => {
+        const x = cx + Math.cos(ang) * maxR;
+        const y = cy + Math.sin(ang) * maxR;
+        const lx = cx + Math.cos(ang) * (maxR + 22);
+        const ly = cy + Math.sin(ang) * (maxR + 18);
+        gridHtml += `<line x1="${cx}" y1="${cy}" x2="${x}" y2="${y}" stroke="rgba(255,255,255,0.14)" stroke-width="1"/>`;
+        gridHtml += `<text x="${lx}" y="${ly + 4}" text-anchor="middle" fill="#cbd5e1" font-size="12" font-weight="700">${labels[i]}</text>`;
+      });
+
+      const makePoly = (stats, stroke, fill) => {
+        const pts = keys.map((k, i) => {
+          const r = (stats[k] / 100) * maxR;
+          return `${cx + Math.cos(angles[i]) * r},${cy + Math.sin(angles[i]) * r}`;
+        }).join(" ");
+        return `<polygon points="${pts}" fill="${fill}" stroke="${stroke}" stroke-width="2.5"/>`;
+      };
+
+      svg.innerHTML = gridHtml +
+        makePoly(a.stats, "#00f0ff", "rgba(0, 240, 255, 0.22)") +
+        makePoly(b.stats, "#ff4d00", "rgba(255, 77, 0, 0.22)") +
+        `<text x="18" y="298" fill="#00f0ff" font-size="11" font-weight="800">■ ${a.name}</text>` +
+        `<text x="185" y="298" fill="#ff4d00" font-size="11" font-weight="800">■ ${b.name}</text>`;
+    }
+
+    // ==================== 7. SLIDE 4: PLAYERS & PAIRING COCKPIT ====================
+    let currentPlayerFilter = "all";
+
+    function renderPlayerRoster() {
+      const wrap = document.getElementById("playerRoster");
+      const list = currentPlayerFilter === "all" ? players : players.filter(p => p.gender === currentPlayerFilter);
+      wrap.innerHTML = list.map(p => `
+        <div class="player-card ${p.id === selectedPlayerId ? 'selected' : ''}" onclick="selectPlayer('${p.id}')">
+          <div class="player-rank-pill ${p.pillClass}">${p.rankBadge}</div>
+          <div class="player-name">${p.name} <span style="font-size:0.85rem;">${p.country}</span></div>
+          <div class="player-en">${p.en}</div>
+          <div class="player-style-mini">${p.styleTitle.split("×")[0]}</div>
+        </div>
+      `).join("");
+    }
+
+    function filterPlayers(gender, btn) {
+      currentPlayerFilter = gender;
+      btn.parentElement.querySelectorAll(".filter-pill").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      renderPlayerRoster();
+    }
+
+    function selectPlayer(id) {
+      selectedPlayerId = id;
+      renderPlayerRoster();
+      renderCockpit();
+      const p = players.find(x => x.id === id);
+      showToast(`已切換選手：${p.name} — 正反面膠皮配對載入完成！`);
+    }
+
+    function switchNextPlayer() {
+      const idx = players.findIndex(p => p.id === selectedPlayerId);
+      const next = players[(idx + 1) % players.length];
+      selectPlayer(next.id);
+    }
+
+    function setSetupMode(mode) {
+      setupMode = mode;
+      document.getElementById("modeProBtn").classList.toggle("active", mode === "pro");
+      document.getElementById("modeAltBtn").classList.toggle("active", mode === "alt");
+      const fp = document.getElementById("finalModePro");
+      const fa = document.getElementById("finalModeAlt");
+      if (fp && fa) {
+        fp.classList.toggle("active", mode === "pro");
+        fa.classList.toggle("active", mode === "alt");
+      }
+      renderCockpit();
+      if (currentSlide === 4) renderFinalSummary();
+      showToast(mode === "pro" ? "已切換為：WTT 選手本尊原配" : "已切換為：進階球友日系調校版");
+    }
+
+    function togglePaddleSide(side) {
+      paddleSide = side;
+      const btnFH = document.getElementById("btnShowFH");
+      const btnBH = document.getElementById("btnShowBH");
+      btnFH.classList.toggle("active", side === "fh");
+      btnFH.classList.toggle("fh", side === "fh");
+      btnBH.classList.toggle("active", side === "bh");
+      btnBH.classList.toggle("bh", side === "bh");
+      updatePaddleGraphic();
+    }
+
+    function updatePaddleGraphic() {
+      const p = players.find(x => x.id === selectedPlayerId);
+      const setup = setupMode === "pro" ? p.proSetup : p.altSetup;
+      const face = document.getElementById("paddleRubberFace");
+      const lblSide = document.getElementById("paddleLabelSide");
+      const lblRubber = document.getElementById("paddleLabelRubber");
+      const lblBlade = document.getElementById("paddleLabelBlade");
+
+      if (paddleSide === "fh") {
+        face.setAttribute("fill", "url(#rubberRed)");
+        lblSide.textContent = "FOREHAND // 正手正面";
+        lblRubber.textContent = setup.fh.name.replace("Butterfly ", "").replace("Nittaku ", "");
+      } else {
+        face.setAttribute("fill", "url(#rubberBlack)");
+        lblSide.textContent = "BACKHAND // 反手反面";
+        lblRubber.textContent = setup.bh.name.replace("Butterfly ", "").replace("Nittaku ", "");
+      }
+      lblBlade.textContent = p.blade.split("/")[0].replace("Butterfly ", "");
+    }
+
+    function renderCockpit() {
+      const p = players.find(x => x.id === selectedPlayerId);
+      const setup = setupMode === "pro" ? p.proSetup : p.altSetup;
+
+      document.getElementById("cockpitPlayerBadge").textContent = `${p.country} · ${p.en} · ${p.rankBadge}`;
+      document.getElementById("cockpitPlayerName").textContent = p.name;
+      document.getElementById("cockpitPlayerRecord").textContent = p.result2026;
+      document.getElementById("cockpitBladeNote").textContent = `推薦底板搭配：${p.blade}`;
+
+      document.getElementById("cockpitStyleTitle").textContent = p.styleTitle;
+      document.getElementById("cockpitStyleDesc").textContent = p.styleDesc;
+
+      document.getElementById("fhRubberName").textContent = setup.fh.name;
+      document.getElementById("fhRubberSpec").textContent = setup.fh.spec;
+      document.getElementById("fhRubberReason").textContent = setup.fh.reason;
+
+      document.getElementById("bhRubberName").textContent = setup.bh.name;
+      document.getElementById("bhRubberSpec").textContent = setup.bh.spec;
+      document.getElementById("bhRubberReason").textContent = setup.bh.reason;
+
+      updatePaddleGraphic();
+    }
+
+    // ==================== 8. SLIDE 5: SUMMARY & DOWNLOADS ====================
+    function renderFinalSummary() {
+      const driver = document.getElementById("userDriverName").value.trim() || "球友極速車手";
+      const p = players.find(x => x.id === selectedPlayerId);
+      const setup = setupMode === "pro" ? p.proSetup : p.altSetup;
+      const modeName = setupMode === "pro" ? "🏆 WTT 選手職業原配" : "🇯🇵 進階球友日系調校版";
+
+      document.getElementById("finalSpecCard").innerHTML = `
+        <div style="display:flex; justify-content:space-between; flex-wrap:wrap; border-bottom:1px solid rgba(255,255,255,0.12); padding-bottom:10px; margin-bottom:12px;">
+          <div>
+            <div style="font-size:0.75rem; color:var(--nitro-cyan); font-family:var(--font-display);">CUSTOM DRIVER</div>
+            <div style="font-size:1.3rem; font-weight:900;">${driver}</div>
+          </div>
+          <div style="text-align:right;">
+            <div style="font-size:0.75rem; color:var(--turbo-orange); font-family:var(--font-display);">REFERENCE PRO</div>
+            <div style="font-size:1.15rem; font-weight:800;">${p.name} (${p.country})</div>
+          </div>
+        </div>
+        <div><strong>戰績背景：</strong>${p.result2026}</div>
+        <div><strong>配置模式：</strong><span style="color:var(--champ-gold); font-weight:800;">${modeName}</span></div>
+        <div><strong>建議底板：</strong>${p.blade}</div>
+        <div style="margin-top:10px; padding:10px; background:rgba(255,30,66,0.12); border-left:3px solid var(--flame-red);">
+          <strong>🔴 正面（正手 FH）膠皮：</strong>${setup.fh.name} <span style="color:var(--champ-gold);">[${setup.fh.spec}]</span><br>
+          <span style="font-size:0.84rem; color:#cbd5e1;">${setup.fh.reason}</span>
+        </div>
+        <div style="margin-top:8px; padding:10px; background:rgba(0,240,255,0.1); border-left:3px solid var(--nitro-cyan);">
+          <strong>⚫ 反面（反手 BH）膠皮：</strong>${setup.bh.name} <span style="color:var(--champ-gold);">[${setup.bh.spec}]</span><br>
+          <span style="font-size:0.84rem; color:#cbd5e1;">${setup.bh.reason}</span>
+        </div>
+      `;
+    }
+
+    function downloadPresentationHTML() {
+      const htmlContent = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
+      const blob = new Blob([htmlContent], { type: "text/html;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "2026_WTT_Frankfurt_TableTennis_Rubber_Presentation.html";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast("整份互動簡報 (.HTML) 已開始下載！");
+    }
+
+    function downloadSpecSheet() {
+      const driver = document.getElementById("userDriverName").value.trim() || "球友極速車手";
+      const p = players.find(x => x.id === selectedPlayerId);
+      const setup = setupMode === "pro" ? p.proSetup : p.altSetup;
+      const modeName = setupMode === "pro" ? "WTT 選手職業原配" : "進階球友日系調校版";
+
+      const cardHtml = `<!DOCTYPE html>
+<html lang="zh-Hant"><head><meta charset="UTF-8"><title>${driver} 的 2026 桌球配對規格卡</title>
+<style>
+  body{font-family:'Noto Sans TC',sans-serif;background:#07090e;color:#f0f4ff;padding:30px;}
+  .card{max-width:720px;margin:auto;background:#101522;border:2px solid #00f0ff;border-radius:10px;padding:28px;}
+  h1{color:#ff4d00;margin-top:0;font-style:italic;}
+  .box{background:#182034;padding:14px;border-radius:6px;margin:12px 0;border-left:4px solid #00f0ff;}
+  .fh{border-left-color:#ff1e42;}
+</style></head><body>
+<div class="card">
+  <h1>NITRO 2026 // 專屬桌球拍膠皮配對規格卡</h1>
+  <p><strong>使用者：</strong>${driver} &nbsp;|&nbsp; <strong>參考選手：</strong>${p.name} (${p.en})</p>
+  <p><strong>賽事：</strong>${p.result2026}</p>
+  <p><strong>配置模式：</strong>${modeName} &nbsp;|&nbsp; <strong>建議底板：</strong>${p.blade}</p>
+  <div class="box fh"><strong>🔴 正面（正手 FH）：${setup.fh.name}</strong><br><small>${setup.fh.spec}</small><p>${setup.fh.reason}</p></div>
+  <div class="box"><strong>⚫ 反面（反手 BH）：${setup.bh.name}</strong><br><small>${setup.bh.spec}</small><p>${setup.bh.reason}</p></div>
+</div></body></html>`;
+
+      const blob = new Blob([cardHtml], { type: "text/html;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `Spec_${p.id}_${setupMode}.html`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast(`已匯出 ${p.name} 的專屬膠皮規格卡！`);
+    }
+
+    // ==================== 9. INIT ====================
+    function initApp() {
+      renderRubbers("all");
+      initDuelSelects();
+      renderPlayerRoster();
+      renderCockpit();
+      renderFinalSummary();
+    }
+
+    document.addEventListener("DOMContentLoaded", initApp);
+  </script>
+</body>
+</html>
